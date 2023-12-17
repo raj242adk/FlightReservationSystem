@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Flight</title>
+</head>
+<body>
+<h2>Edit Flight</h2>
+
+<!-- Assuming you have a Flight object available in the model with the name "flight" -->
+<form th:object="${flight}" th:action="@{/flight/edit/{id}(id=${flight.id})}" method="post">
+
+    <!-- Hidden field for the ID -->
+    <input type="hidden" th:field="*{id}" />
+
+    <label th:for="flightNumber">Flight Number:</label>
+    <input type="text" th:field="*{flightNumber}" />
+
+    <label th:for="airline">Airline:</label>
+    <input type="text" th:field="*{airline}" />
+
+    <label  th:for="departureGate">Departure Gate:</label>
+    <input type="text" th:field="*{departure_gate}" />
+
+    <label th:for="arrivalGate">Arrival Gate:</label>
+    <input type="text" th:field="*{arrival_gate}" />
+
+    <label th:for="departureDateTime">Departure Date and Time:</label>
+    <input type="datetime-local" th:field="*{departureDateTime}" />
+
+    <label th:for="arrivalDateTime">Arrival Date and Time:</label>
+    <input type="datetime-local" th:field="*{arrivalDateTime}" />
+
+    <label th:for="availableSeats">Available Seats:</label>
+    <input type="number" th:field="*{availableSeats}" />
+
+    <!-- You may add more fields as needed -->
+
+    <button type="submit">Save Changes</button>
+</form>
+</body>
+</html>
+</html>

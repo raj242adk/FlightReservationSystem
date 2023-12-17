@@ -17,7 +17,7 @@ public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer rt_id;
-    private String Airport;
+    private String airport;
     private String destination;
     @Column(unique = true)
     private Long route_code;
