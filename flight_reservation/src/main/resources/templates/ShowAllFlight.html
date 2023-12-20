@@ -89,31 +89,44 @@
 <!-- Separate Thymeleaf expression and JavaScript code -->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    function deleteFlight(id) {
-        if (confirm("Are you sure you want to delete this flight?")) {
-            fetch('/flight/delete/' + id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    // Optionally handle the success response here
-                    return response.json();
+    document.addEventListener('DOMContentLoaded', function () {
+        // Attaching the event handler to the delete buttons
+        var deleteButtons = document.querySelectorAll('.btn-danger');
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var flightId = button.getAttribute('data-flight-id');
+                deleteFlight(flightId);
+            });
+        });
+
+        function deleteFlight(id) {
+            if (confirm("Are you sure you want to delete this flight?")) {
+                fetch('/flight/delete/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 })
-                .then(data => {
-                    // Optionally handle the success data here
-                    console.log(data);
-                })
-                .catch(error => {
-                    // Handle errors here
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Optionally handle the success response here
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Optionally handle the success data here
+                        console.log(data);
+                        // Reload the page or update the UI as needed
+                        location.reload(); // For example, reload the page after deletion
+                    })
+                    .catch(error => {
+                        // Handle errors here
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            }
         }
-    }
+    });
     /*]]>*/
 </script>
 </body>

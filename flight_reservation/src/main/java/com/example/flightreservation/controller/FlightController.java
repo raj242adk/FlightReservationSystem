@@ -55,11 +55,14 @@ public class FlightController {
             model.addAttribute("errorTitle", "Invalid Arrival Date");
             model.addAttribute("errorMessage", "Arrival date must be in the future");
             return "errorPage";
-
-        } else {
-            return "redirect:/admin";
         }
+         flightService.saveFlight(flight);
+
+        // If there are no validation errors, redirect to the "/showAllFlight" page
+        return "admin";
     }
+
+
 
 
     @GetMapping("/flight/edit/{id}")
@@ -103,15 +106,16 @@ public class FlightController {
             model.addAttribute("errorMessage", "Arrival date must be in the future");
             return "errorPage";
 
-        } else {
-            return "redirect:/admin";
         }
+
+        flightService.updateFlight(id,updateFlight);
+        return "redirect:/admin";
 
     }
     @GetMapping("/flight/delete/{id}")
     public String deleteById(@PathVariable Integer id){
         flightService.deleteElementById(id);
-        return "ShowAllFlights";
+        return "redirect:/admin";
 
     }
 }
